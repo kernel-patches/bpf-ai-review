@@ -1,2 +1,7 @@
 # Environment for the Claude Code step, one KEY=VALUE per line.
 # setup.sh appends these to $GITHUB_ENV.
+
+# claude-code-action stops reading at the first result message, so
+# subagents still running in the background are lost with their
+# findings. Run subagents in the foreground.
+CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1
