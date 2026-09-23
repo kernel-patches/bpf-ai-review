@@ -4,7 +4,6 @@
 # Usage: setup.sh <kernel-worktree> <trigger-output-file>
 #
 # - lays out the review prompts in <kernel-worktree>/review
-# - installs the Claude Code overlay into ~/.claude/CLAUDE.md
 # - renders trigger.md into <trigger-output-file>, substituting
 #   ${SHA}, ${BASE_SHA} and ${HEAD_SHA} from the environment
 # - appends claude/env to $GITHUB_ENV, if set, so that the variables
@@ -30,9 +29,6 @@ fi
 
 rm -rf "$worktree/review"
 cp -r "$prompts_dir" "$worktree/review"
-
-mkdir -p "$HOME/.claude"
-cp "$wrapper_dir/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 
 trigger=$(<"$wrapper_dir/trigger.md")
 trigger=${trigger//'${SHA}'/$SHA}

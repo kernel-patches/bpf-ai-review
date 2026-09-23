@@ -14,12 +14,10 @@ pins the prompts and adds what is specific to BPF CI.
   `bpf-ci` carries local changes on top of it.
 - `trigger.md`: the prompt the review job starts with. `${SHA}`,
   `${BASE_SHA}` and `${HEAD_SHA}` are substituted by `setup.sh`.
-- `claude/CLAUDE.md`: instructions installed as `~/.claude/CLAUDE.md`, seen by
-  the review agent and its subagents.
 - `claude/env`: environment variables for the Claude Code step, exported by
   `setup.sh` through `$GITHUB_ENV`.
 - `setup.sh`: called by the review job to lay out the prompts in the kernel
-  tree, install the overlay and render the trigger prompt.
+  tree, export `claude/env` and render the trigger prompt.
 
 ## How it is used
 
@@ -35,9 +33,9 @@ on the next review job.
 
 ## Making changes
 
-- Prompt changes: commit to the `bpf-ci` branch of the fork, then update the
-  submodule here. Changes meant for upstream should also be sent to
-  masoncl/review-prompts.
+- Prompt changes, including BPF CI specific review rules: commit to the
+  `bpf-ci` branch of the fork, then update the submodule here. Changes meant
+  for upstream should also be sent to masoncl/review-prompts.
 - Updating upstream prompts: sync `main` of the fork with upstream, rebase
   `bpf-ci` on it, then update the submodule here.
 - Test changes on kernel-patches/bpf-rc before merging to `main`: AI reviews
