@@ -1,0 +1,2 @@
+# Environment for the Claude Code step, one KEY=VALUE per line.
+# setup.sh appends these to $GITHUB_ENV.

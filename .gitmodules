@@ -1,0 +1,4 @@
+[submodule "review-prompts"]
+	path = review-prompts
+	url = https://github.com/kernel-patches/review-prompts.git
+	branch = bpf-ci
