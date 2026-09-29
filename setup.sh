@@ -43,4 +43,5 @@ fi
 
 echo "bpf-ai-review: $(git -C "$wrapper_dir" rev-parse --verify -q HEAD || echo unknown)"
 echo "review-prompts: $(git -C "$wrapper_dir/review-prompts" log -1 --format='%H %s' 2>/dev/null || echo unknown)"
-echo "claude env: ${env_vars:-none}"
+env_line=${env_vars//$'\n'/ }
+echo "claude env: ${env_line:-none}"
