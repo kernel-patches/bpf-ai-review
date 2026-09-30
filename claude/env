@@ -5,3 +5,14 @@
 # subagents still running in the background are lost with their
 # findings. Run subagents in the foreground.
 CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1
+
+# Pin the Sonnet tier. Unpinned, Claude Code picks Sonnet 4.5 on Bedrock
+# and falls back to Sonnet 4 for the whole session if its startup check
+# of that model fails. Sonnet 5.5 has only a global inference profile,
+# so the workflow's --model must be global too: Claude Code gives
+# subagents spawned by alias the main model's region prefix.
+ANTHROPIC_DEFAULT_SONNET_MODEL=global.anthropic.claude-sonnet-5-5
+
+# Foreground subagents' text and thinking reach the job log only if
+# forwarded.
+CLAUDE_CODE_FORWARD_SUBAGENT_TEXT=1
