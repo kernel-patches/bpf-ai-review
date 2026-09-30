@@ -14,10 +14,14 @@ pins the prompts and adds what is specific to BPF CI.
   `bpf-ci` carries local changes on top of it.
 - `trigger.md`: the prompt the review job starts with. `${SHA}`,
   `${BASE_SHA}` and `${HEAD_SHA}` are substituted by `setup.sh`.
+- `tldr.md`: the prompt for the TL;DR that heads the emailed review; the
+  job runs it with Sonnet after the review. `setup.sh` passes it on as the
+  step output `tldr_prompt`.
 - `claude/env`: environment variables for the Claude Code step, exported by
   `setup.sh` through `$GITHUB_ENV`.
 - `setup.sh`: called by the review job to lay out the prompts in the kernel
-  tree, export `claude/env` and render the trigger prompt.
+  tree, export `claude/env`, render the trigger prompt and output the TL;DR
+  prompt.
 
 ## How it is used
 

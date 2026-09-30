@@ -8,6 +8,7 @@
 #   ${SHA}, ${BASE_SHA} and ${HEAD_SHA} from the environment
 # - appends claude/env to $GITHUB_ENV, if set, so that the variables
 #   reach the Claude Code step
+# - sets the step output tldr_prompt to tldr.md, if $GITHUB_OUTPUT is set
 set -euo pipefail
 
 if [ $# -ne 2 ]; then
@@ -39,6 +40,14 @@ printf '%s\n' "$trigger" > "$trigger_out"
 env_vars=$(grep -v -e '^[[:space:]]*#' -e '^[[:space:]]*$' "$wrapper_dir/claude/env" || true)
 if [ -n "${GITHUB_ENV:-}" ] && [ -n "$env_vars" ]; then
 	printf '%s\n' "$env_vars" >> "$GITHUB_ENV"
+fi
+
+if [ -n "${GITHUB_OUTPUT:-}" ]; then
+	{
+		echo 'tldr_prompt<<EOF_TLDR_PROMPT'
+		printf '%s\n' "$(<"$wrapper_dir/tldr.md")"
+		echo 'EOF_TLDR_PROMPT'
+	} >> "$GITHUB_OUTPUT"
 fi
 
 echo "bpf-ai-review: $(git -C "$wrapper_dir" rev-parse --verify -q HEAD || echo unknown)"
